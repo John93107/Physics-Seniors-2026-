@@ -1,0 +1,134 @@
+Enter<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Time Counter</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:#0f0f0f;
+      color:white;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .container{
+      background:#1b1b1b;
+      padding:40px;
+      border-radius:20px;
+      text-align:center;
+      width:90%;
+      max-width:500px;
+      box-shadow:0 0 20px rgba(0,0,0,0.5);
+    }
+
+    h1{
+      margin-bottom:20px;
+      color:#00bfff;
+    }
+
+    input{
+      width:100%;
+      padding:15px;
+      border:none;
+      border-radius:10px;
+      background:#2b2b2b;
+      color:white;
+      margin-bottom:20px;
+      font-size:16px;
+    }
+
+    .timer{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:15px;
+      margin-top:20px;
+    }
+
+    .box{
+      background:#262626;
+      padding:20px;
+      border-radius:15px;
+    }
+
+    .number{
+      font-size:32px;
+      font-weight:bold;
+      color:#00bfff;
+    }
+
+    .label{
+      margin-top:5px;
+      color:#ccc;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Physics Seniors 2026 🎓</h1>
+
+    <input type="datetime-local" id="dateInput">
+
+    <div class="timer">
+      <div class="box">
+        <div class="number" id="days">0</div>
+        <div class="label">Days</div>
+      </div>
+
+      <div class="box">
+        <div class="number" id="hours">0</div>
+        <div class="label">Hours</div>
+      </div>
+
+      <div class="box">
+        <div class="number" id="minutes">0</div>
+        <div class="label">Minutes</div>
+      </div>
+
+      <div class="box">
+        <div class="number" id="seconds">0</div>
+        <div class="label">Seconds</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById("dateInput");
+
+    input.addEventListener("change", () => {
+      const targetDate = new Date(input.value).getTime();
+
+      setInterval(() => {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if(distance < 0) return;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = days;
+        document.getElementById("hours").innerText = hours;
+        document.getElementById("minutes").innerText = minutes;
+        document.getElementById("seconds").innerText = seconds;
+
+      }, 1000);
+    });
+  </script>
+
+</body>
+</html>
